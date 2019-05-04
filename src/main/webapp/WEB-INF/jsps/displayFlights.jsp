@@ -15,7 +15,9 @@
 <table>
 <tr><th>Airlines</th>
 <th>Departure City</th>
+<th>Arrival City</th>
 <th>Departure Time</th>
+
 </tr>
 
 <c:forEach items="${flights}" var="flight">
@@ -23,6 +25,7 @@
 <td> ${flight.operatingAirlines} </td>
 <td> ${flight.departureCity} </td>
 <td> ${flight.arrivalCity} </td>
+<td> ${flight.estimatedDepartureTime} </td>
 <td><a href="showCompleteReservation?flightId=${flight.id}">Select</a></td>
 </tr>
 
