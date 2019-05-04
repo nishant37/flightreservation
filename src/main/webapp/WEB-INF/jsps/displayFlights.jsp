@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Display Flights:</title>
 </head>
 <body>
 <h2>Flights: </h2>
