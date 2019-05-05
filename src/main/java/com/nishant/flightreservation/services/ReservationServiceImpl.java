@@ -12,6 +12,8 @@ import com.nishant.flightreservation.entities.Reservation;
 import com.nishant.flightreservation.repos.FlightRepository;
 import com.nishant.flightreservation.repos.PassengerRepository;
 import com.nishant.flightreservation.repos.ReservationRepository;
+import com.nishant.flightreservation.util.EmailUtil;
+import com.nishant.flightreservation.util.PDFGenerator;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -24,6 +26,13 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	ReservationRepository reservationRepository;
+	
+	@Autowired
+	PDFGenerator pdfGenerator;
+	
+	
+	@Autowired
+	EmailUtil emailUtil;
 
 	@Override
 	public Reservation bookFlight(ReservationRequest request) {
@@ -46,6 +55,12 @@ public class ReservationServiceImpl implements ReservationService {
 		reservation.setCheckedIn(false);
 		
 		Reservation savedReservation = reservationRepository.save(reservation);
+		
+		String filePath = "C:/Users/nisha/OneDrive/Documents/Reservations/reservation"+savedReservation.getId()+".pdf";
+		
+		pdfGenerator.generateItinerary(savedReservation, filePath);
+		
+		emailUtil.sendItinerary(passenger.getEmail(),filePath );
 		
 		return savedReservation;
 	}
